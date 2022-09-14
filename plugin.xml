@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin id="com.galp.plugins.ar" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>GalpAR</name>
+  <description>Galp Cordova Plugin to Augmented Reality</description>
+  <author>Galp Incc</author>
+  <js-module name="GalpArWrapper" src="www/GalpArWrapper.js">
+    <clobbers target="cordova.plugins.GalpArWrapper"/>
+  </js-module>
+
+  <platform name="android">
+
+    <config-file target="AndroidManifest.xml" parent="application">        
+      <activity android:name="com.galp.plugins.ar.CustomArActivity"
+              android:screenOrientation="fullSensor"
+              android:stateNotNeeded="true"
+              android:exported="false"
+              android:windowSoftInputMode="stateAlwaysHidden"></activity>
+              <meta-data android:name="com.google.ar.core" android:value="required" />
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+      <uses-feature android:name="android.hardware.camera.ar"/>
+      <uses-permission android:name="android.permission.CAMERA"/>
+    </config-file>
+
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="GalpArWrapper">
+        <param name="android-package" value="com.galp.plugins.ar.GalpArWrapper"/>
+      </feature>
+    </config-file>
+    <config-file parent="/*" target="AndroidManifest.xml"/>
+    <source-file src="src/android/com/galp/plugins/ar/CustomArActivity.java" target-dir="src/com/galp/plugins/ar"/>
+    <source-file src="src/android/com/galp/plugins/ar/GalpArImpl.java" target-dir="src/com/galp/plugins/ar"/>
+    <source-file src="src/android/com/galp/plugins/ar/res/layout/activity_custom_ar.xml" target-dir="res/layout"/>
+    <source-file src="src/android/com/galp/plugins/ar/res/raw/wolves.sfb" target-dir="res/raw"/>
+
+    <framework src="build-extras-ar.gradle" custom="true" type="gradleReference" />
+
+  </platform>
+
+  <!--platform name="ios">
+
+    <preference name="CAMERA_USAGE_DESCRIPTION" default=" " />
+    <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+        <string>$CAMERA_USAGE_DESCRIPTION</string>
+    </config-file>
+
+    <config-file parent="/*" target="config.xml">
+      <feature name="GalpArWrapper">
+        <param name="ios-package" value="GalpArWrapper"/>
+      </feature>
+    </config-file>
+    <source-file src="src/ios/CDVBarcodeOptions.m"/>
+    <header-file src="src/ios/CDVBarcodeOptions.h"/>
+    <source-file src="src/ios/GalpArWrapper.m"/>
+    <header-file src="src/ios/GalpArWrapper.h"/>
+    <source-file src="src/ios/OSBarcodeErrors.m"/>
+    <header-file src="src/ios/OSBarcodeErrors.h"/>
+    <source-file src="src/ios/ScannerViewController.m"/>
+    <header-file src="src/ios/ScannerViewController.h"/>
+    <source-file src="src/ios/ScannerViewController.xib"/>
+    <resource-file src="src/ios/BarcodeLocal.xcassets"/>
+    
+    <framework src="ZXingObjC" type="podspec" spec=":git => 'https://github.com/ar/ZXingObjC.git', :tag => '3.6.4'"/>
+    
+  </platform-->
+</plugin>
