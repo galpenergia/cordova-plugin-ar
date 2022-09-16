@@ -2,7 +2,7 @@
 <plugin id="com.galp.plugins.ar" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
   <name>GalpAR</name>
   <description>Galp Cordova Plugin to Augmented Reality</description>
-  <author>Galp Incc</author>
+  <author>Galp Inc</author>
   <js-module name="GalpArImpl" src="www/GalpArImpl.js">
     <clobbers target="cordova.plugins.GalpArImpl"/>
   </js-module>
@@ -17,10 +17,6 @@
       </feature>
     </config-file>
 
-    <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
-        <application android:theme="@style/AppTheme" />
-    </edit-config>
-
     <config-file target="AndroidManifest.xml"  mode="merge"  parent="/manifest">
       <uses-feature android:name="android.hardware.camera.ar"/>
       <uses-permission android:name="android.permission.CAMERA"/>
@@ -31,7 +27,7 @@
     </config-file>
 
     <config-file target="AndroidManifest.xml"  mode="merge"  parent="application">
-            <activity android:name="com.galp.plugins.ar.CustomArActivity" android:exported="false"></activity>
+            <activity android:name="com.galp.plugins.ar.CustomArActivity" android:exported="false" android:theme="@style/Theme.AppCompat"></activity>
     </config-file>
     
     <!--config-file parent="/*" target="AndroidManifest.xml"/!-->
