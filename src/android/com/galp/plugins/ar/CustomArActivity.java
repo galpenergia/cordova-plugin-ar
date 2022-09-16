@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
-import com.galp.bluetooh.R;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
@@ -23,16 +22,15 @@ public class CustomArActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_custom_ar);
-
-        arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+        setContentView(this.getResourceIdByName("activity_custom_ar", "layout"));
+        arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(this.getResourceIdByName("fragment", "id"));
         setUpModel();
         setUpPlane();
     }
 
     private void setUpModel() {
         ModelRenderable.builder()
-                .setSource(this, R.raw.wolves)
+                .setSource(this, this.getResourceIdByName("wolves", "raw"))
                 .build()
                 .thenAccept(renderable -> modelRenderable = renderable)
                 .exceptionally(throwable -> {
@@ -59,5 +57,9 @@ public class CustomArActivity extends AppCompatActivity {
         node.setRenderable(modelRenderable);
         node.select();
 
+    }
+
+    private int getResourceIdByName(String name, String defType) {
+        return this.getResources().getIdentifier(name, defType, this.getPackageName());
     }
 }
