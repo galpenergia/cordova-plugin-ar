@@ -26,52 +26,16 @@ public class GalpArImpl extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         _callbackContext = callbackContext;
 
-        if (action.equals("open")) {
-
-            JSONObject params = args.optJSONObject(0);
-            String scanInstructions = params.optString("scan_instructions");
-            int cameraDirection = params.optInt("camera_direction");
-            int scanOrientation = params.optInt("scan_orientation");
-            boolean scanLine = params.optBoolean("scan_line");
-            boolean scanButton = params.optBoolean("scan_button");
-            String scanText = params.optString("scan_button_text");
-
-            this.scan(scanInstructions,
-                    cameraDirection,
-                    scanOrientation,
-                    scanLine,
-                    scanButton,
-                    scanText);
+        if (action.equals("scan")) {
+            this.scan();
             return true;
         }
         return false;
     }
 
-    private void scan(String scanInstructions,
-                      int cameraDirection,
-                      int scanOrientation,
-                      boolean scanLine,
-                      boolean scanButton,
-                      String scanText) {
-
-        IntentIntegrator integrator = new IntentIntegrator(this.cordova.getActivity());
-        integrator.setOrientationLocked(false);
-
-        if (cameraDirection == BACK_CAMERA) {
-            integrator.setCameraId(0);
-        } else if (cameraDirection == FRONT_CAMERA) {
-            integrator.setCameraId(1);
-        }
-
-        integrator.setCaptureActivity(CustomArActivity.class);
-        integrator.addExtra("SCAN_INSTRUCTIONS", scanInstructions);
-        integrator.addExtra("SCAN_ORIENTATION", scanOrientation);
-        integrator.addExtra("SCAN_LINE", scanLine);
-        integrator.addExtra("SCAN_BUTTON", scanButton);
-        integrator.addExtra("SCAN_TEXT", scanText);
-        integrator.initiateScan();
-
-        this.cordova.setActivityResultCallback(this);
+    private void scan() {
+        Intent myIntent = new Intent( this.cordova.getContext(), CustomArActivity.class);
+        this.cordova.startActivityForResult(null, myIntent, 0);
     }
 
     @Override

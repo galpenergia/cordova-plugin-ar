@@ -3,39 +3,49 @@
   <name>GalpAR</name>
   <description>Galp Cordova Plugin to Augmented Reality</description>
   <author>Galp Incc</author>
-  <js-module name="GalpArWrapper" src="www/GalpArWrapper.js">
-    <clobbers target="cordova.plugins.GalpArWrapper"/>
+  <js-module name="GalpArImpl" src="www/GalpArImpl.js">
+    <clobbers target="cordova.plugins.GalpArImpl"/>
   </js-module>
 
   <platform name="android">
 
-    <config-file target="AndroidManifest.xml" parent="application">        
-      <activity android:name="com.galp.plugins.ar.CustomArActivity"
-              android:screenOrientation="fullSensor"
-              android:stateNotNeeded="true"
-              android:exported="false"
-              android:windowSoftInputMode="stateAlwaysHidden"></activity>
-              <meta-data android:name="com.google.ar.core" android:value="required" />
+    <hook src="hooks/configureProjectLevelDependency.js" type="after_platform_add" />
+
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="GalpArImpl">
+        <param name="android-package" value="com.galp.plugins.ar.GalpArImpl"/>
+      </feature>
     </config-file>
 
-    <config-file target="AndroidManifest.xml" parent="/manifest">
+    <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+        <application android:theme="@style/AppTheme" />
+    </edit-config>
+
+    <config-file target="AndroidManifest.xml"  mode="merge"  parent="/manifest">
       <uses-feature android:name="android.hardware.camera.ar"/>
       <uses-permission android:name="android.permission.CAMERA"/>
     </config-file>
 
-    <config-file parent="/*" target="res/xml/config.xml">
-      <feature name="GalpArWrapper">
-        <param name="android-package" value="com.galp.plugins.ar.GalpArWrapper"/>
-      </feature>
+    <config-file target="AndroidManifest.xml"  mode="merge"  parent="application">
+      <meta-data android:name="com.google.ar.core" android:value="required" />
     </config-file>
-    <config-file parent="/*" target="AndroidManifest.xml"/>
+
+    <config-file target="AndroidManifest.xml"  mode="merge"  parent="application">
+            <activity android:name="com.galp.plugins.ar.CustomArActivity" android:exported="false"></activity>
+    </config-file>
+    
+    <!--config-file parent="/*" target="AndroidManifest.xml"/!-->
     <source-file src="src/android/com/galp/plugins/ar/CustomArActivity.java" target-dir="src/com/galp/plugins/ar"/>
     <source-file src="src/android/com/galp/plugins/ar/GalpArImpl.java" target-dir="src/com/galp/plugins/ar"/>
     <source-file src="src/android/com/galp/plugins/ar/res/layout/activity_custom_ar.xml" target-dir="res/layout"/>
     <source-file src="src/android/com/galp/plugins/ar/res/raw/wolves.sfb" target-dir="res/raw"/>
+    <source-file src="src/android/com/galp/plugins/ar/res/values/stylesAr.xml" target-dir="res/values"/>
 
     <framework src="build-extras-ar.gradle" custom="true" type="gradleReference" />
 
+    <framework src="androidx.appcompat:appcompat:1.1.0" />
+    <framework src="androidx.constraintlayout:constraintlayout:1.1.3" />
+    <framework src="com.google.ar.sceneform.ux:sceneform-ux:1.15.0" />
   </platform>
 
   <!--platform name="ios">
@@ -46,14 +56,14 @@
     </config-file>
 
     <config-file parent="/*" target="config.xml">
-      <feature name="GalpArWrapper">
-        <param name="ios-package" value="GalpArWrapper"/>
+      <feature name="GalpArImpl">
+        <param name="ios-package" value="GalpArImpl"/>
       </feature>
     </config-file>
     <source-file src="src/ios/CDVBarcodeOptions.m"/>
     <header-file src="src/ios/CDVBarcodeOptions.h"/>
-    <source-file src="src/ios/GalpArWrapper.m"/>
-    <header-file src="src/ios/GalpArWrapper.h"/>
+    <source-file src="src/ios/GalpArImpl.m"/>
+    <header-file src="src/ios/GalpArImpl.h"/>
     <source-file src="src/ios/OSBarcodeErrors.m"/>
     <header-file src="src/ios/OSBarcodeErrors.h"/>
     <source-file src="src/ios/ScannerViewController.m"/>
