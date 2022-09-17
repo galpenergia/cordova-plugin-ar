@@ -24,13 +24,20 @@ public class CustomArActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(this.getResourceIdByName("activity_custom_ar", "layout"));
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(this.getResourceIdByName("fragment", "id"));
-        setUpModel();
+
+        String resourceName = getIntent().getStringExtra("RESOURCE_NAME");
+        String resourceType = getIntent().getStringExtra("RESOURCE_TYPE");
+
+        if(resourceName.isEmpty()) {
+            finish();
+        }
+        setUpModel(resourceName, resourceType);
         setUpPlane();
     }
 
-    private void setUpModel() {
+    private void setUpModel(String resourceName, String resourceType) {
         ModelRenderable.builder()
-                .setSource(this, this.getResourceIdByName("wolves", "raw"))
+                .setSource(this, this.getResourceIdByName(resourceName, resourceType))
                 .build()
                 .thenAccept(renderable -> modelRenderable = renderable)
                 .exceptionally(throwable -> {
