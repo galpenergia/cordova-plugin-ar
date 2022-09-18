@@ -2,6 +2,8 @@ package com.galp.plugins.ar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.Toast;
@@ -15,6 +17,8 @@ import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.BaseArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
+import java.io.IOException;
+
 public class CustomArActivity extends AppCompatActivity {
     private ArFragment arFragment;
     private ModelRenderable modelRenderable;
@@ -25,19 +29,17 @@ public class CustomArActivity extends AppCompatActivity {
         setContentView(this.getResourceIdByName("activity_custom_ar", "layout"));
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(this.getResourceIdByName("fragment", "id"));
 
-        String resourceName = getIntent().getStringExtra("RESOURCE_NAME");
-        String resourceType = getIntent().getStringExtra("RESOURCE_TYPE");
-
-        if(resourceName.isEmpty()) {
+        String resourcePath = getIntent().getStringExtra("RESOURCE_PATH");
+        if(resourcePath.isEmpty()) {
             finish();
         }
-        setUpModel(resourceName, resourceType);
+        setUpModel(resourcePath);
         setUpPlane();
     }
 
-    private void setUpModel(String resourceName, String resourceType) {
+    private void setUpModel(String resourcePath) {
         ModelRenderable.builder()
-                .setSource(this, this.getResourceIdByName(resourceName, resourceType))
+                .setSource(this, Uri.parse("file:///android_asset/" + resourcePath))
                 .build()
                 .thenAccept(renderable -> modelRenderable = renderable)
                 .exceptionally(throwable -> {

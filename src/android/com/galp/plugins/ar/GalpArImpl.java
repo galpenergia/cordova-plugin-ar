@@ -20,18 +20,16 @@ public class GalpArImpl extends CordovaPlugin {
         if (action.equals("openObject")) {
 
             JSONObject params = args.optJSONObject(0);
-            String resouceName = params.optString("resourceName");
-            String resourceType = params.optString("resourceType");
-            this.openObject(resouceName, resourceType);
+            String resourcePath = params.optString("resourcePath");
+            this.openObject(resourcePath);
             return true;
         }
         return false;
     }
 
-    private void openObject(String resouceName, String resourceType) {
+    private void openObject(String resourcePath) {
         Intent intentAr = new Intent( this.cordova.getContext(), CustomArActivity.class);
-        intentAr.putExtra("RESOURCE_NAME", resouceName);
-        intentAr.putExtra("RESOURCE_TYPE", resourceType);
+        intentAr.putExtra("RESOURCE_PATH", resourcePath);
         this.cordova.startActivityForResult(null, intentAr, 0);
     }
 
