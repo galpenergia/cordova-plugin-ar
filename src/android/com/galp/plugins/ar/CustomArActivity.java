@@ -39,7 +39,7 @@ public class CustomArActivity extends AppCompatActivity {
 
     private void setUpModel(String resourcePath) {
         ModelRenderable.builder()
-                .setSource(this, Uri.parse("file:///android_asset/" + resourcePath))
+                .setSource(this, Uri.parse("file://" + resourcePath))
                 .build()
                 .thenAccept(renderable -> modelRenderable = renderable)
                 .exceptionally(throwable -> {
