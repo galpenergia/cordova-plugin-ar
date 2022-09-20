@@ -2,29 +2,25 @@ const fs = require("fs");
 const path = require("path");
 
 function addProjectLevelDependency(platformRoot) {
-    const artifactVersion = "com.google.ar.sceneform:plugin:1.15.0";
-    const dependency = 'classpath "' + artifactVersion + '"';
 
-    const projectBuildFile = path.join(platformRoot, "build.gradle");
+    const projectSettingsFile = path.join(platformRoot, "settings.gradle");
 
-    let fileContents = fs.readFileSync(projectBuildFile, "utf8");
+    let fileContents = fs.readFileSync(projectSettingsFile, "utf8");
+    idx = fileContents.indexOf('include ":app"');
+    if (idx >= 0) {
 
-    const myRegexp = /\bclasspath\b.*/g;
-    let match = myRegexp.exec(fileContents);
-    if (match != null) {
-        let insertLocation = match.index + match[0].length;
+        let replacement = 'include ":app"\n\n';
+        replacement += "include ':sceneform'\n";
+        replacement += "project(':sceneform').projectDir=new File('sceneformsrc/sceneform')\n\n";
+        replacement += "include ':sceneformux'\n";
+        replacement += "project(':sceneformux').projectDir=new File('sceneformux/ux')"; 
 
-        fileContents = '        ' +
-            fileContents.substr(0, insertLocation) +
-            "\n " +
-            dependency +
-            fileContents.substr(insertLocation);
+        fileContents = fileContents.replace('include ":app"', replacement);
+        fs.writeFileSync(projectSettingsFile, fileContents, "utf8");
 
-        fs.writeFileSync(projectBuildFile, fileContents, "utf8");
-
-        console.log("updated " + projectBuildFile + " to include dependency " + dependency);
+        console.log("updated " + projectSettingsFile + " to include dependency AR dependencies");
     } else {
-        console.error("unable to insert dependency " + dependency);
+        console.error("unable to insert AR dependency");
     }
 }
 
