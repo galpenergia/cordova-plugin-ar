@@ -6,6 +6,7 @@ async function addProjectLevelDependency(platformRoot) {
 
     const projectSettingsFile = path.join(platformRoot, "settings.gradle");
 
+    console.log("settings.gradle --- " + projectSettingsFile);
     let fileContents = fs.readFileSync(projectSettingsFile, "utf8");
     idx = fileContents.indexOf('include ":app"');
     if (idx >= 0) {
