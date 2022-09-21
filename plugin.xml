@@ -9,7 +9,7 @@
 
   <platform name="android">
 
-    <hook src="hooks/configureProjectLevelDependency.js" type="after_platform_add" />
+    <hook src="hooks/configureProjectLevelDependency.js" type="before_prepare" />
 
     <config-file parent="/*" target="res/xml/config.xml">
       <feature name="GalpArImpl">
