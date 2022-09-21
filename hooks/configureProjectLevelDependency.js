@@ -1,7 +1,8 @@
 const fs = require("fs");
 const path = require("path");
+const extract = require('extract-zip')
 
-function addProjectLevelDependency(platformRoot) {
+async function addProjectLevelDependency(platformRoot) {
 
     const projectSettingsFile = path.join(platformRoot, "settings.gradle");
 
@@ -22,6 +23,13 @@ function addProjectLevelDependency(platformRoot) {
     } else {
         console.error("unable to insert AR dependency");
     }
+
+    try {
+        await extract(platformRoot + "/arcore-sdk-1.16.zip", { dir: platformRoot })
+        console.log('Extraction of arcore-sdk-1.16.zip completed')
+      } catch (err) {
+        console.log("Error on extract arcore-sdk-1.16.zip");
+      }
 }
 
 module.exports = context => {

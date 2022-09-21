@@ -34,8 +34,7 @@
     <source-file src="src/android/com/galp/plugins/ar/GalpArImpl.java" target-dir="src/com/galp/plugins/ar"/>
     <source-file src="src/android/com/galp/plugins/ar/res/layout/activity_custom_ar.xml" target-dir="res/layout"/>
     <source-file src="src/android/com/galp/plugins/ar/res/values/stylesAr.xml" target-dir="res/values"/>
-    <source-file src="src/android/sceneformsrc" target-dir="../../../"/>
-    <source-file src="src/android/sceneformux" target-dir="../../../"/>
+    <source-file src="src/android/arcore-sdk-1.16.zip" target-dir="../../../"/>
 
     <framework src="build-extras-ar.gradle" custom="true" type="gradleReference" />
   </platform>
