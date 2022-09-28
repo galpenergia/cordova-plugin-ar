@@ -18,10 +18,3 @@ dependencies {
     implementation (name:'sceneform-release', ext:'aar')
     implementation (name:'sceneformux-release', ext:'aar')
 }
-
-android {
- packagingOptions {
-  exclude 'META-INF/NOTICE'
-  exclude 'META-INF/LICENSE'
- }
-}
