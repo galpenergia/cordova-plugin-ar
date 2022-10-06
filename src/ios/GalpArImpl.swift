@@ -8,7 +8,7 @@
     
       
       let storyboard = UIStoryboard(name: "GalpArMain", bundle: nil)
-      let vc = storyboard.instantiateViewController(withIdentifier: "BV1-FR-VrT")
+      let vc = storyboard.instantiateViewController(withIdentifier: "mainView")
       self.viewController.present(vc, animated: true)
       
       self.commandDelegate!.send(
