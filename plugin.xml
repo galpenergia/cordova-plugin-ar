@@ -38,8 +38,8 @@
     <resource-file src="src/android/libs/sceneformux-release.aar" target="libs/sceneformux-release.aar" />
   </platform>
 
-  <!--platform name="ios">
-
+  <platform name="ios">
+    <dependency id="cordova-plugin-add-swift-support@2.0.2"/>
     <preference name="CAMERA_USAGE_DESCRIPTION" default=" " />
     <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
         <string>$CAMERA_USAGE_DESCRIPTION</string>
@@ -49,19 +49,13 @@
       <feature name="GalpArImpl">
         <param name="ios-package" value="GalpArImpl"/>
       </feature>
+      <preference name="deployment-target" value="13.0" />
+      <preference name="UseSwiftLanguageVersion" value="5" />
+      <preference name="SwiftVersion" value="5" />
     </config-file>
-    <source-file src="src/ios/CDVBarcodeOptions.m"/>
-    <header-file src="src/ios/CDVBarcodeOptions.h"/>
-    <source-file src="src/ios/GalpArImpl.m"/>
-    <header-file src="src/ios/GalpArImpl.h"/>
-    <source-file src="src/ios/OSBarcodeErrors.m"/>
-    <header-file src="src/ios/OSBarcodeErrors.h"/>
-    <source-file src="src/ios/ScannerViewController.m"/>
-    <header-file src="src/ios/ScannerViewController.h"/>
-    <source-file src="src/ios/ScannerViewController.xib"/>
-    <resource-file src="src/ios/BarcodeLocal.xcassets"/>
-    
-    <framework src="ZXingObjC" type="podspec" spec=":git => 'https://github.com/ar/ZXingObjC.git', :tag => '3.6.4'"/>
-    
-  </platform-->
+    <source-file src="src/ios/GalpArImpl.swift"/>
+    <source-file src="src/ios/GalpArViewController.swift"/>
+    <source-file src="src/ios/GalpArExperience.rcproject"/>
+    <resource-file src="src/ios/GalpArMain.storyboard"/>
+  </platform>
 </plugin>
