@@ -50,7 +50,7 @@
         <param name="ios-package" value="GalpArImpl"/>
       </feature>
       <preference name="deployment-target" value="13.0" />
-      <preference name="UseSwiftLanguageVersion" value="5.5" />
+      <preference name="UseSwiftLanguageVersion" value="5" />
       <preference name="SwiftVersion" value="5" />
     </config-file>
     <source-file src="src/ios/GalpArImpl.swift"/>
