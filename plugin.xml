@@ -40,7 +40,8 @@
 
   <platform name="ios">
     <preference name="IOS_INIT_ON_LOAD" default="true" />
-    <dependency id="cordova-plugin-add-swift-support@2.0.2"/>
+    <!--dependency id="cordova-plugin-add-swift-support@2.0.2"/-->
+    <dependency id="cordova-plugin-add-swift-support" url="https://github.com/OutSystems/cordova-plugin-add-swift-support.git#2.0.3-OS1"/>
     <preference name="CAMERA_USAGE_DESCRIPTION" default="Para utilizar o serviço de AR, é necessário permissão para usar a camêra." />
     <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
         <string>$CAMERA_USAGE_DESCRIPTION</string>
